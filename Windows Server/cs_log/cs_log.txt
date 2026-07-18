@@ -200,3 +200,14 @@ Object name: 'System.Net.Sockets.Socket'.)
    at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
 in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 72
 
+ERROR [22.02.2025 21:39:09] Not able to reduce client's connection count (client IP : ) Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at Counter_Strike_Server.Client.RemoveClient(Boolean notifyClients) in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\Client.cs:line 257
+
+ERROR [21.03.2025 19:15:39] Connection 0 blocked (Wrong game version)
+   at Counter_Strike_Server.Client.CheckPlayerInfo(String macAddress, String version) 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\Client.cs:line 489
+   at Counter_Strike_Server.Router.RouteData(String[] tempDataSplit, Client client, Int32 dataLenght) 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\Router.cs:line 199
+   at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 124
+
