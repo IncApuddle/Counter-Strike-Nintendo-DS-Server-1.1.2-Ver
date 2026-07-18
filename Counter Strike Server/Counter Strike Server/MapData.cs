@@ -18,7 +18,8 @@ namespace Counter_Strike_Server
         DUST2_2x2 = 2,
         AIM_MAP = 3,
         B2000 = 4,
-        MIRAGEA = 5
+        FYSNOW = 5,
+        MIRAGE = 6
     };
 
 
@@ -39,7 +40,7 @@ namespace Counter_Strike_Server
 
         public static int MapMinuts = 50; // Time of a map
 
-        public static List<int> MapsToGo = new List<int>{0,2,3,4};
+        public static List<int> MapsToGo = new List<int>{2,3,4,6};
 
         public static void ChengeMap()
         {

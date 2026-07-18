@@ -362,7 +362,11 @@ namespace Counter_Strike_Server
             }
             else if (Globals.selectedMap == 5)
             {
-                NewParty.mapId = mapEnum.MIRAGEA;
+                NewParty.mapId = mapEnum.FYSNOW;
+            }
+            else if (Globals.selectedMap == 6)
+            {
+                NewParty.mapId = mapEnum.MIRAGE;
             }
             
             NewParty.password = password;

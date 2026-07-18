@@ -151,23 +151,48 @@ namespace Counter_Strike_Server
             allMaps.Add(newMap);
             newMap = new MapData();
 
-            newMap.mapId = mapEnum.MIRAGEA;
+            newMap.mapId = mapEnum.FYSNOW;
 
-            newMap.allTerroristsSpawns.Add(new Vector3(13, 2.6f, 41));
-            newMap.allTerroristsSpawns.Add(new Vector3(16, 2.6f, 41));
-            newMap.allTerroristsSpawns.Add(new Vector3(10, 2.6f, 41));
-            newMap.allTerroristsSpawns.Add(new Vector3(13, 2.6f, 44));
-            newMap.allTerroristsSpawns.Add(new Vector3(16, 2.6f, 44));
-            newMap.allTerroristsSpawns.Add(new Vector3(10, 2.6f, 44));
+            newMap.allTerroristsSpawns.Add(new Vector3(0, 0, -16));
+            newMap.allTerroristsSpawns.Add(new Vector3(-7, 0, -16));
+            newMap.allTerroristsSpawns.Add(new Vector3(7, 0, -16));
+            newMap.allTerroristsSpawns.Add(new Vector3(0, 0, -21));
+            newMap.allTerroristsSpawns.Add(new Vector3(-7, 0, -21));
+            newMap.allTerroristsSpawns.Add(new Vector3(7, 0, -21));
 
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-28, 0.15f, -29));
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-25.5f, 0.15f, -29));
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-30.5f, 0.15f, -29));
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-28, 0.15f, -33));
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-25.5f, 0.15f, -33));
-            newMap.allCounterTerroristsSpawns.Add(new Vector3(-30.5f, 0.15f, -33));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(0, 0, 16));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-7, 0, 16));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(7, 0, 16));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(0, 0, 21));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-7, 0, 21));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(7, 0, 21));
 
-            newMap.AllBombsTriggersCollisions.Add(SetBombZone(-36.61f, -0.39f, 5, 6.6f));
+            newMap.AllBombsTriggersCollisions.Add(SetBombZone(-1.75f, -35, 4, 4));
+
+            newMap.terroristsSpawnsAngle = 256;
+            newMap.counterTerroristsSpawnsAngle = 0;
+
+            allMaps.Add(newMap);
+            newMap = new MapData();
+
+            newMap.mapId = mapEnum.MIRAGE;
+
+            newMap.allTerroristsSpawns.Add(new Vector3(22.5f, 2.45f, 58));
+            newMap.allTerroristsSpawns.Add(new Vector3(25, 2.45f, 58));
+            newMap.allTerroristsSpawns.Add(new Vector3(20, 2.45f, 58));
+            newMap.allTerroristsSpawns.Add(new Vector3(22.5f, 2.45f, 61));
+            newMap.allTerroristsSpawns.Add(new Vector3(25, 2.45f, 61));
+            newMap.allTerroristsSpawns.Add(new Vector3(20, 2.45f, 61));
+
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-22.5f, 0, -10));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-20, 0, -10));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-25, 0, -10));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-22.5f, 0, -14));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-20, 0, -14));
+            newMap.allCounterTerroristsSpawns.Add(new Vector3(-25, 0, -14));
+
+            newMap.AllBombsTriggersCollisions.Add(SetBombZone(-31.82f, 16.7f, 7.4f, 8));
+            newMap.AllBombsTriggersCollisions.Add(SetBombZone(32.297f, -24.54f, 9, 8.5f));
 
             newMap.terroristsSpawnsAngle = 0;
             newMap.counterTerroristsSpawnsAngle = 256;

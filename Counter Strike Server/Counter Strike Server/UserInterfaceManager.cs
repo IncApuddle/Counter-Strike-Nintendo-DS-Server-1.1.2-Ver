@@ -156,6 +156,13 @@ namespace Counter_Strike_Server
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("Map set to : "+ Globals.selectedMap +"\r\n");
                     }
+                    else if(userInput[1] == "6")
+                    {
+                        Globals.ChengeMap();
+                        Globals.selectedMap = 6;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Map set to : "+ Globals.selectedMap +"\r\n");
+                    }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
