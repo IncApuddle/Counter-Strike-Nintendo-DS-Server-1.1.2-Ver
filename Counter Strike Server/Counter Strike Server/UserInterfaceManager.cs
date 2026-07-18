@@ -32,6 +32,86 @@ namespace Counter_Strike_Server
                     Environment.Exit(0);
                 }
 
+                else if (userInput[0] == "players") //Change map on server
+                {
+                    if(userInput[1] == "1")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 1;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "2")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 2;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "3")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 3;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "4")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 4;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "5")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 5;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "6")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 6;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "7")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 7;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "8")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 8;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "9")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 9;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else if(userInput[1] == "10")
+                    {
+                        Globals.ChengeMap();
+                        Settings.maxPlayerPerParty = 10;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Max players set to : "+ Settings.maxPlayerPerParty +"\r\n");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Incorrect number\r\n");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+
                 else if (userInput[0] == "chm") //Change map on server
                 {
                     if(userInput[1] == "0")
