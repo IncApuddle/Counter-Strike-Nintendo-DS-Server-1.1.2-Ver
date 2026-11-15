@@ -1,10 +1,8 @@
 # Counter Strike Nintendo DS Server
  
-This Visual Studio C# project is the Counter Strike Nintendo DS server for [CSDS](https://github.com/Fewnity/Counter-Strike-Nintendo-DS), to allow Nintendo DS players to play with each other.
+This Visual Studio C# project is the Counter Strike Nintendo DS server for [CSDS](https://github.com/IncApuddle/Counter-Strike-Nintendo-DS), to allow Nintendo DS players to play with each other.
 
-This is my first server, so the structure of the code is pretty bad, sorry about that.
-
-### Any help is welcome!
+This is a restructured server of the original csds server code.
 
 ## How to compile :
 
@@ -54,11 +52,7 @@ Command example : "status maintenance"
 - Install the websocket support to your server
 
 ## Todo :
-- [ ] Improve security (more check on player action)
-- [ ] Improve stability (better variable lock between threads)
-- [ ] Improve performance
-- [ ] Use the implemented ban system (ban players from IP if they are trying to cheat)
+- [ ] Improve stability
+- [*] Improve performance
+- [ ] Add new modes
 - [ ] Add bots
-
-## Security
-Please, if you have found a security vulnerability, contact me here : fewnity@gmail.com
