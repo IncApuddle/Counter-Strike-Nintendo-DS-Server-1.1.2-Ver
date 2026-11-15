@@ -1,0 +1,13 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Anonim\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Anonim\\.nuget\\packages",
+      "E:\\Programs\\VisualStudio\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+    ],
+    "configProperties": {
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": true,
+      "System.StartupHookProvider.IsSupported": true
+    }
+  }
+}

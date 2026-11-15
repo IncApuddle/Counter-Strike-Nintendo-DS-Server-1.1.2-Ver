@@ -1,0 +1,72 @@
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.exe
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.deps.json
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.json
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.dev.json
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.AssemblyReference.cache
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.GeneratedMSBuildEditorConfig.editorconfig
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfoInputs.cache
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfo.cs
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.CoreCompileInputs.cache
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter .2B4E9749.Up2Date
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\refint\Counter Strike Server.dll
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.genruntimeconfig.cache
+E:\Mine\Games\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\ref\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.exe
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.deps.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.dev.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.AssemblyReference.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.GeneratedMSBuildEditorConfig.editorconfig
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfoInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfo.cs
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.CoreCompileInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter .2B4E9749.Up2Date
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\refint\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.genruntimeconfig.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.0.1\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\ref\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.AssemblyReference.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.GeneratedMSBuildEditorConfig.editorconfig
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfoInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfo.cs
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.CoreCompileInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\refint\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.exe
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.deps.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.dev.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter .2B4E9749.Up2Date
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.genruntimeconfig.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\ref\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.exe
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.deps.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.runtimeconfig.dev.json
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.AssemblyReference.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.GeneratedMSBuildEditorConfig.editorconfig
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfoInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.AssemblyInfo.cs
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.csproj.CoreCompileInputs.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter .2B4E9749.Up2Date
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\refint\Counter Strike Server.dll
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.pdb
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\Counter Strike Server.genruntimeconfig.cache
+E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\obj\Debug\net5.0\ref\Counter Strike Server.dll
