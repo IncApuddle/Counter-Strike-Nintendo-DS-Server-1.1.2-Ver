@@ -53,6 +53,6 @@ Command example : "status maintenance"
 
 ## Todo :
 - [ ] Improve stability
-- [*] Improve performance
+- [x] Improve performance
 - [ ] Add new modes
 - [ ] Add bots
