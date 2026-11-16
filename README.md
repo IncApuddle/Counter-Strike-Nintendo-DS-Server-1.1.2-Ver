@@ -52,7 +52,7 @@ Command example : "status maintenance"
 - Install the websocket support to your server
 
 ## Todo :
+- [ ] Add bots
+- [ ] Add new modes
 - [ ] Improve stability
 - [x] Improve performance
-- [ ] Add new modes
-- [ ] Add bots
