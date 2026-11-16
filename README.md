@@ -14,7 +14,7 @@ This is a restructured server of the original csds server code.
 - Install [Mono](https://www.mono-project.com/)
 - Run the **make.bat** in the project folder
 
-Note : To avoid coding collisions, path finding..., there is an Unity project to export code : https://github.com/Fewnity/Counter-Strike-DS-Unity-Project
+Note : To avoid coding collisions, path finding..., there is an Unity project to export code : https://github.com/IncApuddle/Counter-Strike-DS-Unity-Project-NewMaps-
 
 ## How to use :
 - Open the **6003** port of your computer and your router
