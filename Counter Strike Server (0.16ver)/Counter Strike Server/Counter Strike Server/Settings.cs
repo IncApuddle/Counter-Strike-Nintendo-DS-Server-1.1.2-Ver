@@ -34,7 +34,7 @@ namespace Counter_Strike_Server
         public const int serverRefreshRate = 33; // Default : 33
         public const int maxConnection = 1000; // Default 1000
         public const int TimeOutSeconds = 10; // Default 10
-        public const string SERVER_VERSION = "1.1.2";
+        public const string SERVER_VERSION = "1.1.0";
         public static bool isOnLinux = false;
         // Enable this improve the security to avoid custom csds builds,
         // But you need to create your own csds build if you want to host you own server
@@ -42,6 +42,7 @@ namespace Counter_Strike_Server
         public static bool ENABLE_CONSOLE_PRINT = false;
         public static bool ENABLE_LOGGING = true;
         public static ServerStatus serverStatus = ServerStatus.ONLINE;
+        public static int botFillTo = 6; // Parties are filled with bots up to this number of players (0 = no bots), console: bot_fill
         public const int maxPlayerPerParty = 10;// 5 vs 5 (the game supports 10 players: MaxPlayer in main.h)
         public static List<string> GAME_VERSIONS = new() { "1.1.2" };
     }

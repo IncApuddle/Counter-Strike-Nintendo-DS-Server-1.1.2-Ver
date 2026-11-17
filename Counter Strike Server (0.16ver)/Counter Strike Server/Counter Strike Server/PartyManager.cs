@@ -275,7 +275,9 @@ namespace Counter_Strike_Server
                             }
 
                             //Force start party if there are enought votes
-                            if ((currentParty.allConnectedClients.Count <= 3 && forceCount >= 2) || (currentParty.allConnectedClients.Count > 3 && forceCount >= currentParty.allConnectedClients.Count - 2))
+                            //Only humans vote
+                            int humanCount = currentParty.HumanCount();
+                            if ((humanCount <= 3 && forceCount >= Math.Min(2, humanCount)) || (humanCount > 3 && forceCount >= humanCount - 2))
                             {
                                 currentParty.Start();
                             }

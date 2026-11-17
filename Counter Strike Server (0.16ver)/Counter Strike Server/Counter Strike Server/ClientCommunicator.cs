@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 
@@ -105,7 +106,11 @@ namespace Counter_Strike_Server
         public void SendBombPlacing()
         {
             if (!client.isDead && ((client.inventory.haveBomb && client.team == TeamEnum.TERRORISTS) || client.team == TeamEnum.COUNTERTERRORISTS) && PhysicsManager.CheckBombZone(client.position, MapManager.allMaps[(int)client.party.mapId]))
+            {
+                //Start of the planting/defusing (checked with the real time)
+                client.bombActionStartTime = DateTime.Now;
                 Call.Create($"BOMBPLACING;{client.id}", client.party.allConnectedClients, client);
+            }
         }
 
         /// <summary>
@@ -352,6 +357,26 @@ namespace Counter_Strike_Server
 
             if (client.isDead)
                 return;
+
+            //Anti speed hack: the fire rate of the gun with the real time.
+            //With a margin: the network can group shots (a fast gun like the
+            //TMP fires 15 shots per second), so up to 0.6 s of shots in
+            //advance and 25% faster are allowed.
+            BotGuns.GunInfo gun = BotGuns.Get(client.inventory.GetCurrentSlotValue());
+            if (gun != null && gun.fireRate > 0)
+            {
+                DateTime now = DateTime.Now;
+                float shotsPerSecond = 60f / gun.fireRate * 1.25f;
+                float maxBudget = Math.Max(Client.MAX_SHOT_BUDGET, shotsPerSecond * 0.6f);
+                client.shotBudget = Math.Min(maxBudget, client.shotBudget + shotsPerSecond * (float)(now - client.lastShotTime).TotalSeconds);
+                client.lastShotTime = now;
+                if (client.shotBudget < 1)
+                {
+                    client.cancelNextHit = true; //Too fast: no shot, no damage
+                    return;
+                }
+                client.shotBudget -= 1;
+            }
 
             if (client.inventory.currentSlot == 1 || client.inventory.currentSlot == 2)
             {

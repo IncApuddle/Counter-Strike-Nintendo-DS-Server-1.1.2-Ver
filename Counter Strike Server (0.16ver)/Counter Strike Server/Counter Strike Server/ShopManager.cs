@@ -44,8 +44,8 @@ namespace Counter_Strike_Server
             allShopElements.Add(new Gun(new List<int>() { 300, 150, 300 }, false, 750, 24, 75, 20, 100, 0.885f)); // Five-SeveN 6
 
             //Big guns
-            allShopElements.Add(new Gun(new List<int>() { 900, 450, 900 }, true, 1700, 171 / 6, 50, 8, 48, 0.7f)); // M3 Check kill money 7
-            allShopElements.Add(new Gun(new List<int>() { 900, 450, 900 }, true, 3000, 114 / 6, 50, 7, 32, 0.7f)); // XM1014 8 
+            allShopElements.Add(new Gun(new List<int>() { 900, 450, 900 }, true, 1700, 55, 50, 8, 48, 0.7f, true)); // M3 (55 per pellet: 2 pellets kill) Check kill money 7
+            allShopElements.Add(new Gun(new List<int>() { 900, 450, 900 }, true, 3000, 37, 50, 7, 32, 0.7f, true)); // XM1014 (37 per pellet: 3 pellets kill) 8 
             allShopElements.Add(new Gun(new List<int>() { 300, 150, 300 }, true, 5750, 35, 75, 100, 200, 0.97f)); // M249 9 
 
             allShopElements.Add(new Gun(new List<int>() { 600, 300, 600 }, true, 1400, 28, 47.5f, 30, 100, 0.82f)); // MAC-10 10

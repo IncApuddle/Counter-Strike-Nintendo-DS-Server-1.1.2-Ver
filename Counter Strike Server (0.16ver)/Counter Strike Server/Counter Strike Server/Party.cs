@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Counter_Strike_Server
 {
@@ -55,6 +56,19 @@ namespace Counter_Strike_Server
         public int loseCountCounterTerrorists;
         public int loseCountTerrorists;
         public bool needTeamEquilibration;
+        public int extraBots = 0; // Bots added (or removed) by hand, see BotManager
+
+        /// <summary>
+        /// Number of human players (not bots)
+        /// </summary>
+        public int HumanCount()
+        {
+            int count = 0;
+            foreach (Client client in allConnectedClients)
+                if (!client.isBot)
+                    count++;
+            return count;
+        }
 
         public Party()
         {
@@ -263,8 +277,12 @@ namespace Counter_Strike_Server
         public bool CheckEmptyParty()
         {
             bool Deleted = false;
-            if (allConnectedClients.Count == 0)
+            if (HumanCount() == 0)
             {
+                // Bots don't play alone
+                foreach (Client bot in new List<Client>(allConnectedClients))
+                    bot.RemoveClient(false);
+
                 PartyManager.allParties.Remove(this);
                 Deleted = true;
             }

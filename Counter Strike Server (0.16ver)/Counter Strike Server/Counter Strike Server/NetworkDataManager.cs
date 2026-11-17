@@ -26,6 +26,7 @@ namespace Counter_Strike_Server
             SaveCorrupted = 6,
             IncorrectCode = 7,
             KickTeamKill = 8,
+            KickSpeedHack = 9,
         }
 
         public enum JoinType

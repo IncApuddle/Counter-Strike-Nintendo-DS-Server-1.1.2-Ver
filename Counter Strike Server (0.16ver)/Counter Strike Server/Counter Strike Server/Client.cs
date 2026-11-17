@@ -51,6 +51,9 @@ namespace Counter_Strike_Server
         /// </summary>
         public void QueueSend(string packet)
         {
+            // Bots have no DS to send data to
+            if (isBot)
+                return;
             lock (sendLock)
             {
                 sendBuffer.Append(packet);
@@ -63,6 +66,8 @@ namespace Counter_Strike_Server
         /// </summary>
         public void FlushSendBuffer()
         {
+            if (isBot)
+                return;
             // writeLock keeps the order of the data if two threads send at
             // the same time. sendLock is only held to take the data, so the
             // other threads can add messages while a write is in progress.
@@ -118,6 +123,74 @@ namespace Counter_Strike_Server
         public bool cancelNextHit = false;
         public int lastFrameCount = 0;
         public bool removed = false;
+        public bool isBot = false; // Server bot (see BotManager), no connection
+
+        // Anti speed hack (emulator fast forward): checks with the real time
+        public DateTime lastPositionTime = DateTime.Now;
+        public float moveBudget = MAX_MOVE_BUDGET;   // Distance the player can still walk (world units)
+        public int speedViolationCount = 0;
+        public float shotBudget = MAX_SHOT_BUDGET;   // Shots the player can still fire
+        public DateTime lastShotTime = DateTime.Now;
+        public DateTime bombActionStartTime = DateTime.MinValue; // Start of planting/defusing
+
+        // Fastest walk of the game: 220 * 2 per frame in diagonal (about 9.1
+        // units/s), with a margin for the network
+        public const float MAX_SPEED = 11.5f;
+        public const float MAX_MOVE_BUDGET = 4f;
+        public const float MAX_SHOT_BUDGET = 4f;
+
+        // Anti speed hack with the number of position packets: the game sends
+        // at most 20 positions per second (one every 3 frames). With the
+        // emulator fast forward, it sends more.
+        public DateTime positionCountStart = DateTime.Now;
+        public int positionCount = 0;
+        public int packetRateViolationCount = 0;
+        private const int MAX_POSITIONS_PER_SECOND = 20;
+        private const double POSITION_COUNT_WINDOW = 3; // Seconds
+
+        /// <summary>
+        /// Count the position packets, kick the player if the game runs too fast
+        /// </summary>
+        private void CheckPositionPacketRate()
+        {
+            positionCount++;
+            double elapsed = (DateTime.Now - positionCountStart).TotalSeconds;
+            if (elapsed < POSITION_COUNT_WINDOW)
+                return;
+
+            double rate = positionCount / elapsed;
+            positionCount = 0;
+            positionCountStart = DateTime.Now;
+
+            // 35% margin for the network (grouped packets)
+            if (rate > MAX_POSITIONS_PER_SECOND * 1.35)
+            {
+                packetRateViolationCount++;
+                if (packetRateViolationCount >= 2 && !NeedRemoveConnection)
+                {
+                    communicator.SendError(NetworkDataManager.ErrorType.KickSpeedHack);
+                    NeedRemoveConnection = true;
+                    BotManager.Print($"Player {name} kicked: game speed-up ({rate:0} positions/s instead of {MAX_POSITIONS_PER_SECOND})");
+                }
+            }
+            else
+            {
+                packetRateViolationCount = 0;
+            }
+        }
+
+        /// <summary>
+        /// The server moved the player (spawn, rollback): forget the walked distance
+        /// </summary>
+        public void ResetMoveCheck()
+        {
+            lastPositionTime = DateTime.Now;
+            moveBudget = MAX_MOVE_BUDGET;
+            speedViolationCount = 0;
+        }
+        public BotBrain brain; // Behaviour of the bot (null for humans)
+        public DateTime lastMoveTime = DateTime.Now; // Last time the player moved (bot accuracy)
+        public int trackedX, trackedY, trackedZ; // Position at the last bot update
 
         public Client()
         {
@@ -136,6 +209,7 @@ namespace Counter_Strike_Server
             int TerroristsSpawn = 0, CounterTerroristsSpawn = 0;
 
             positionErrorCount = 0;
+            ResetMoveCheck();
 
             //for each players
             for (int i = 0; i < party.allConnectedClients.Count; i++)
@@ -188,6 +262,8 @@ namespace Counter_Strike_Server
         /// <exception cref="Exception"></exception>
         public void SetPosition(string xPos, string yPos, string zPos, string angle, string cameraAngle)
         {
+            CheckPositionPacketRate();
+
             //If the player is playing
             if (!isDead && team != TeamEnum.SPECTATOR && party.roundState != RoundState.WAIT_START)
             {
@@ -207,9 +283,36 @@ namespace Counter_Strike_Server
                     this.cameraAngle = 245;
                 }
 
+                //Anti speed hack: the walked distance can't be bigger than the
+                //max speed * the real time (the emulator fast forward makes
+                //the game run faster)
+                DateTime now = DateTime.Now;
+                moveBudget = Math.Min(MAX_MOVE_BUDGET, moveBudget + MAX_SPEED * (float)(now - lastPositionTime).TotalSeconds);
+                lastPositionTime = now;
+                float dx = (newPos.x - position.x) / 4096f;
+                float dz = (newPos.z - position.z) / 4096f;
+                float walked = MathF.Sqrt(dx * dx + dz * dz);
+                bool tooFast = walked > moveBudget && walked < 3000 / 4096f * 2;
+
                 //Security check : check if the player is not moving too fast
-                if (Math.Abs(newPos.x - position.x) < 3000 && Math.Abs(newPos.z - position.z) < 3000)
+                if (tooFast)
                 {
+                    //Ignore the position, kick the player after some tries in a
+                    //row (a few tries: a network lag can give one bad position)
+                    speedViolationCount++;
+                    if (speedViolationCount >= 5 && !NeedRemoveConnection)
+                    {
+                        communicator.SendError(NetworkDataManager.ErrorType.KickSpeedHack);
+                        NeedRemoveConnection = true;
+                        BotManager.Print($"Player {name} kicked: game speed-up (emulator fast forward)"); // Always shown
+                    }
+                    return;
+                }
+                else if (Math.Abs(newPos.x - position.x) < 3000 && Math.Abs(newPos.z - position.z) < 3000)
+                {
+                    moveBudget -= walked;
+                    if (speedViolationCount > 0)
+                        speedViolationCount--;
                     position = newPos;
                 }
                 else
@@ -277,8 +380,12 @@ namespace Counter_Strike_Server
                     Party currentParty = PartyManager.allParties[i];
 
                     //If the party is not full and not started and if the party is private check the password
-                    if (currentParty.allConnectedClients.Count < Settings.maxPlayerPerParty && ((!currentParty.partyStarted && !currentParty.isPrivate) || (currentParty.isPrivate && currentParty.password == code.ToUpper())))
+                    //(bots leave to make room for humans)
+                    if (currentParty.HumanCount() < Settings.maxPlayerPerParty && ((!currentParty.partyStarted && !currentParty.isPrivate) || (currentParty.isPrivate && currentParty.password == code.ToUpper())))
                     {
+                        if (currentParty.allConnectedClients.Count >= Settings.maxPlayerPerParty && !BotManager.MakeRoomForHuman(currentParty))
+                            continue;
+
                         currentParty.allConnectedClients.Add(this);
                         party = currentParty;
                         return;
@@ -304,7 +411,27 @@ namespace Counter_Strike_Server
         public bool RemoveClient(bool notifyClients)
         {
             //Check if the client was already removed from the server
-            if (!removed)
+            if (!removed && isBot)
+            {
+                // Bot: no connection to close
+                removed = true;
+                if (party != null)
+                {
+                    if (notifyClients)
+                        Call.Create($"LEAVE;{id}", party.allConnectedClients);
+                    party.allConnectedClients.Remove(this);
+                    if (inventory.haveBomb && !isDead && party.partyStarted)
+                        PlaceBomb(position.x, position.y, position.z, angle, true);
+                    OnPlayerKilled();
+                    if (party.partyStarted)
+                    {
+                        party.CheckIfTeamsAreEquilibrated();
+                        party.CheckIfThereIsEmptyTeam();
+                    }
+                }
+                return false;
+            }
+            else if (!removed)
             {
                 removed = true;
                 //Notify the client of the disconnection
@@ -449,7 +576,8 @@ namespace Counter_Strike_Server
                     yPos -= (int)(0.845 * 4096);
                     CanPut = true;
                 }
-                else if (PhysicsManager.CheckBombZone(position, MapManager.allMaps[(int)party.mapId]))
+                else if (PhysicsManager.CheckBombZone(position, MapManager.allMaps[(int)party.mapId]) &&
+                         (DateTime.Now - bombActionStartTime).TotalSeconds >= 3.5 * 0.8) //Anti speed hack: real planting time
                 {
                     CanPut = true;
 
@@ -492,7 +620,10 @@ namespace Counter_Strike_Server
         public void DefuseBomb()
         {
             //Security check
-            if (!isDead && team == TeamEnum.COUNTERTERRORISTS && party.roundState == RoundState.PLAYING && party.bombSet && PhysicsManager.CheckBombDefuseZone(position, party))
+            //Anti speed hack: real defusing time (10 s, 5 s with a kit)
+            double defuseTime = inventory.haveDefuseKit ? 5 : 10;
+            bool defuseTimeOk = (DateTime.Now - bombActionStartTime).TotalSeconds >= defuseTime * 0.8;
+            if (!isDead && team == TeamEnum.COUNTERTERRORISTS && party.roundState == RoundState.PLAYING && party.bombSet && defuseTimeOk && PhysicsManager.CheckBombDefuseZone(position, party))
             {
                 party.counterScore++;
 
@@ -653,6 +784,10 @@ namespace Counter_Strike_Server
         public void CheckAfterDamage(Client killerClient, bool CheckScore, bool sendHealth)
         {
             Party currentParty = party;
+
+            // A bot turns to the player who shot it
+            if (isBot && brain != null && killerClient != null && health > 0)
+                brain.OnDamaged(killerClient);
             if (health <= 0)
                 health = 0;
 

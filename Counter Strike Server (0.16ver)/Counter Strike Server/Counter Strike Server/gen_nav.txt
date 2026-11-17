@@ -1,0 +1,5 @@
+gen_nav.py is the script that generates this file. 
+It is not included in the build. If you change the waypoints in the game, 
+run `python gen_nav.py BotNavData.Generated.cs` — 
+just make sure to update the paths to `ai_data.c` and `collisions.c` 
+at the beginning of the script.

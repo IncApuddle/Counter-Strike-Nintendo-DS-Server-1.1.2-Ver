@@ -27,6 +27,31 @@ namespace Counter_Strike_Server
                     PrintCommandsList();
                 }
 
+                else if (userInput[0] == "bot_add") //Add a bot
+                {
+                    BotManager.CommandAdd(userInput.Length > 1 ? userInput[1] : "");
+                }
+                else if (userInput[0] == "bot_kick") //Remove a bot
+                {
+                    BotManager.CommandKick(userInput.Length > 1 ? userInput[1] : "");
+                }
+                else if (userInput[0] == "bot_fill") //Auto-fill with bots
+                {
+                    BotManager.CommandFill(userInput.Length > 1 ? userInput[1] : "");
+                }
+                else if (userInput[0] == "bot_log") //Bot events on/off
+                {
+                    BotManager.debugLog = !BotManager.debugLog;
+                    BotManager.Print("Bot log: " + (BotManager.debugLog ? "on" : "off"));
+                }
+                else if (userInput[0] == "bot_debug") //State of the bots
+                {
+                    BotManager.CommandDebug();
+                }
+                else if (userInput[0] == "bot_list") //List bots
+                {
+                    BotManager.CommandList();
+                }
                 else if (userInput[0] == "stop") //Stop the server
                 {
                     Environment.Exit(0);
@@ -352,6 +377,12 @@ namespace Counter_Strike_Server
                            "mapswitch [on/off] : Turns on and off the map switch.\n" +
                            "maptime : Shows time left for the map.\n" +
                            "settime [Number from 1 to 59]: Sets time for current and other maps.\n" +
+                           "bot_add [t/ct] : Add a bot (to the party with the most players).\n" +
+                           "bot_kick [name/all] : Remove a bot (all: and stop the auto-fill for this party).\n" +
+                           "bot_fill [0-10] : Fill parties with bots up to this number of players.\n" +
+                           "bot_list : Show the bots.\n" +
+                           "bot_debug : Show the state of the bots (target, ammo...).\n" +
+                           "bot_log : Show/hide bot events (hits).\n" +
                            "mapslot [add/remove/set]: \n" +
                            "  add: Adds new map slot for the queue.\n" +
                            "  remove: Removes last map slot from the queue.\n" +

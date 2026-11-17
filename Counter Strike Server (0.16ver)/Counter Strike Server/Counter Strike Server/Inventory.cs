@@ -140,8 +140,16 @@ namespace Counter_Strike_Server
             if (currentSlot == 1 || currentSlot == 2)
             {
                 int ammoIndex = currentSlot - 1;
-                int missingAmmoCount = ((Gun)ShopManager.allShopElements[allSlots[currentSlot]]).magazineCapacity - AllAmmoMagazine[ammoIndex].AmmoCount;
-                if (missingAmmoCount < AllAmmoMagazine[ammoIndex].TotalAmmoCount)
+                Gun gun = (Gun)ShopManager.allShopElements[allSlots[currentSlot]];
+                int missingAmmoCount = gun.magazineCapacity - AllAmmoMagazine[ammoIndex].AmmoCount;
+                // Shotguns are reloaded one shell at a time
+                if (gun.reloadOneByOne && missingAmmoCount > 1)
+                    missingAmmoCount = 1;
+                if (missingAmmoCount <= 0)
+                {
+                    // Magazine already full
+                }
+                else if (missingAmmoCount < AllAmmoMagazine[ammoIndex].TotalAmmoCount)
                 {
                     AllAmmoMagazine[ammoIndex].AmmoCount += missingAmmoCount;
                     if (!client.party.partyMode.infiniteGunAmmo)

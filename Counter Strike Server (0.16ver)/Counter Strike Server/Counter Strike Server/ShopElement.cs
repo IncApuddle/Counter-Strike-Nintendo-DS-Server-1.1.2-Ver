@@ -27,9 +27,11 @@ namespace Counter_Strike_Server
         public int magazineCapacity;
         public int maxAmmoCount;
         public float damageFalloff;
+        public bool reloadOneByOne; // Shotguns: reloaded one shell at a time
 
-        public Gun(List<int> killMoneyBonus, bool isBigGun, int price, int damage, float penetration, int magazineCapacity, int maxAmmoCount, float damageFalloff) : base(price)
+        public Gun(List<int> killMoneyBonus, bool isBigGun, int price, int damage, float penetration, int magazineCapacity, int maxAmmoCount, float damageFalloff, bool reloadOneByOne = false) : base(price)
         {
+            this.reloadOneByOne = reloadOneByOne;
             this.killMoneyBonus = new List<int>(killMoneyBonus);
             this.isBigGun = isBigGun;
             this.damage = damage;

@@ -62,6 +62,9 @@ namespace Counter_Strike_Server
             //Send the positions 20 times per second
             PositionTicker.Start();
 
+            //Server bots
+            BotManager.Start();
+
             //Start UDP (positions), same port number
             try
             {
@@ -193,7 +196,7 @@ namespace Counter_Strike_Server
                     continue;
                 }
 
-                NewClient.id = totalConnection;
+                NewClient.id = NewClientId();
                 //Init inventory
                 NewClient.inventory.allSlots[0] = Inventory.KNIFE_ID;
 
@@ -207,11 +210,6 @@ namespace Counter_Strike_Server
 
                 //Add client to clients list
                 allClients.Add(NewClient);
-                totalConnection++;
-                if (totalConnection >= int.MaxValue - 1)
-                {
-                    totalConnection = 0;
-                }
 
                 NewClient.sentKey = Security.GetBaseKey();
                 Call.Create($"KEY;{NewClient.sentKey}", NewClient);
@@ -220,6 +218,17 @@ namespace Counter_Strike_Server
                 UserInterfaceManager.PrintMessage($"A client connected, Id : {NewClient.id}, Clients count : {ClientCount + 1}");
             }
         }
+        /// <summary>
+        /// New player id (clients and bots)
+        /// </summary>
+        public static int NewClientId()
+        {
+            int id = Interlocked.Increment(ref totalConnection) - 1;
+            if (id >= int.MaxValue - 2)
+                Interlocked.Exchange(ref totalConnection, 0);
+            return id;
+        }
+
         public static void KickAll()
         {
             for (int KickPlayerIndex = 0; KickPlayerIndex < allClients.Count; KickPlayerIndex++)

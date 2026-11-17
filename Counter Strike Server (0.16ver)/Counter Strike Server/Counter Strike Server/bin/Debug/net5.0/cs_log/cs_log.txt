@@ -211,3 +211,11 @@ in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1
    at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
 in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.0\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 124
 
+ERROR [17.11.2026 07:32:06] Connection 0 blocked (Wrong game version)
+   at Counter_Strike_Server.Client.CheckPlayerInfo(String macAddress, String version) 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\Client.cs:line 586
+   at Counter_Strike_Server.Router.RouteData(String[] tempDataSplit, Client client, Int32 dataLenght) 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\Router.cs:line 199
+   at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 125
+
