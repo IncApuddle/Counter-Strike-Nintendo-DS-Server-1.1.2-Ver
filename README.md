@@ -17,7 +17,7 @@ This is a restructured server of the original csds server code.
 Note : To avoid coding collisions, path finding..., there is an Unity project to export code : https://github.com/IncApuddle/Counter-Strike-DS-Unity-Project-NewMaps-
 
 ## How to use :
-- Open the **6003** port of your computer and your router
+- Open the **6003** port of your computer and your router (TCP and UDP)
 
 ### On Windows :
 - Launch **Counter Strike Server.exe**
@@ -52,7 +52,7 @@ Command example : "status maintenance"
 - Install the websocket support to your server
 
 ## Todo :
-- [X] Add bots
-- [ ] Add new modes
+- [x] Add bots
+- [x] Add new modes
 - [ ] Improve stability
 - [x] Improve performance
