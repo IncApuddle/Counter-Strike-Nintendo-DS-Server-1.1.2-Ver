@@ -124,6 +124,9 @@ namespace Counter_Strike_Server
         public int lastFrameCount = 0;
         public bool removed = false;
         public bool isBot = false; // Server bot (see BotManager), no connection
+        public int votedMode = -1; // Mode voted during the warm up
+        public int gunGameKills = 0; // GunGame: kills
+        public int gunGameGun = Party.GUNGAME_FIRST_GUN; // GunGame: current gun
 
         // Anti speed hack (emulator fast forward): checks with the real time
         public DateTime lastPositionTime = DateTime.Now;
@@ -140,12 +143,13 @@ namespace Counter_Strike_Server
         public const float MAX_SHOT_BUDGET = 4f;
 
         // Anti speed hack with the number of position packets: the game sends
-        // at most 20 positions per second (one every 3 frames). With the
-        // emulator fast forward, it sends more.
+        // at most 30 positions per second (one every 2 frames, see
+        // sendDataToServer() of the game). With the emulator fast forward, it
+        // sends more.
         public DateTime positionCountStart = DateTime.Now;
         public int positionCount = 0;
         public int packetRateViolationCount = 0;
-        private const int MAX_POSITIONS_PER_SECOND = 20;
+        private const int MAX_POSITIONS_PER_SECOND = 30;
         private const double POSITION_COUNT_WINDOW = 3; // Seconds
 
         /// <summary>
@@ -162,11 +166,14 @@ namespace Counter_Strike_Server
             positionCount = 0;
             positionCountStart = DateTime.Now;
 
-            // 35% margin for the network (grouped packets)
-            if (rate > MAX_POSITIONS_PER_SECOND * 1.35)
+            // Margin for the network (grouped packets). The fast forward is 2x or more.
+            if (rate > MAX_POSITIONS_PER_SECOND * 1.25)
+                BotManager.Print($"Player {name}: {rate:0} positions/s (normal: {MAX_POSITIONS_PER_SECOND})");
+
+            if (rate > MAX_POSITIONS_PER_SECOND * 1.6)
             {
                 packetRateViolationCount++;
-                if (packetRateViolationCount >= 2 && !NeedRemoveConnection)
+                if (packetRateViolationCount >= 3 && !NeedRemoveConnection)
                 {
                     communicator.SendError(NetworkDataManager.ErrorType.KickSpeedHack);
                     NeedRemoveConnection = true;
@@ -330,8 +337,11 @@ namespace Counter_Strike_Server
                     }
                 }
 
-                // If the player pass through the map, teleport the player
-                if (newPos.y <= -10000)
+                // If the player pass through the map, teleport the player.
+                // -8 units: below the lowest floor of all maps (Mirage: about
+                // -3.6, the player is 0.9 above the floor). -10000 (-2.4) was
+                // reached in the low part of Mirage.
+                if (newPos.y <= -8 * 4096)
                 {
                     SetPlayerSpawn(false);
                 }
@@ -396,6 +406,13 @@ namespace Counter_Strike_Server
             //If there is no party found, create new one
             if (string.IsNullOrEmpty(code))
                 PartyManager.CreateParty(this, false);
+            else if (PartyManager.IsRecentPrivateCode(code.ToUpper())) //Private party closed by a map change: new one with the same code
+            {
+                lock (PartyManager.allParties)
+                {
+                    PartyManager.CreateParty(this, true, code.ToUpper());
+                }
+            }
             else //Or the password is just wrong
             {
                 communicator.SendError(NetworkDataManager.ErrorType.IncorrectCode);
@@ -715,7 +732,12 @@ namespace Counter_Strike_Server
         /// </summary>
         public void OnPlayerKilled()
         {
-            if (party.roundState == RoundState.PLAYING)//If the player is killed during the party
+            if (party.roundState == RoundState.PLAYING && party.partyMode.respawnMode)//Deathmatch/GunGame: respawn
+            {
+                respawnTimer = party.partyMode.trainingRespawnTimer;
+                needRespawn = true;
+            }
+            else if (party.roundState == RoundState.PLAYING)//If the player is killed during the party
             {
                 //Check if all a team is dead
 
@@ -834,9 +856,13 @@ namespace Counter_Strike_Server
                     {
                         //Add kill count and money
                         killerClient.killCount++;
-                        if (ShopManager.allShopElements[killerClient.inventory.GetCurrentSlotValue()] is Gun)
-                            killerClient.AddMoneyTo(((Gun)ShopManager.allShopElements[killerClient.inventory.GetCurrentSlotValue()]).killMoneyBonus[PartyManager.allPartyModesData.IndexOf(killerClient.party.partyMode)]);
+                        //Kill money (only Competitive and Casual have values)
+                        int modeIndex = PartyManager.allPartyModesData.IndexOf(killerClient.party.partyMode);
+                        if (ShopManager.allShopElements[killerClient.inventory.GetCurrentSlotValue()] is Gun killGun && modeIndex < killGun.killMoneyBonus.Count && !killerClient.party.partyMode.infiniteMoney)
+                            killerClient.AddMoneyTo(killGun.killMoneyBonus[modeIndex]);
                         killerClient.communicator.SendKillCountAndDeathCount();
+                        //GunGame: next gun every 2 kills
+                        killerClient.party.OnGunGameKill(killerClient);
                     }
 
                     //Send kill text

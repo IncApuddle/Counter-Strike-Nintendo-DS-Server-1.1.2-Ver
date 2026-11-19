@@ -136,6 +136,9 @@ namespace Counter_Strike_Server
 
             Call.Create($"SETMAP;{(int)client.party.mapId}", client);
             Call.Create($"SETMODE;{PartyManager.allPartyModesData.IndexOf(client.party.partyMode)}", client);
+            //Votes for the next mode
+            int[] modeVotes = client.party.GetModeVotes();
+            Call.Create($"MODEVOTES;{string.Join(';', modeVotes)}", client);
 
             client.communicator.SendName(client, false);
             client.party.communicator.SendVoteResult(VoteType.ForceStart);
@@ -362,6 +365,11 @@ namespace Counter_Strike_Server
             //With a margin: the network can group shots (a fast gun like the
             //TMP fires 15 shots per second), so up to 0.6 s of shots in
             //advance and 25% faster are allowed.
+            //Infinite ammo (Deathmatch, GunGame)
+            if (client.party != null && client.party.partyMode.infiniteGunAmmo && (client.inventory.currentSlot == 1 || client.inventory.currentSlot == 2) &&
+                client.inventory.AllAmmoMagazine[client.inventory.currentSlot - 1].TotalAmmoCount == 0)
+                client.inventory.ResetGunAmmo(client.inventory.currentSlot);
+
             BotGuns.GunInfo gun = BotGuns.Get(client.inventory.GetCurrentSlotValue());
             if (gun != null && gun.fireRate > 0)
             {

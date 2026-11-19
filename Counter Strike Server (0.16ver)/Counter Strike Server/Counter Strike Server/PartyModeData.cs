@@ -64,5 +64,11 @@ namespace Counter_Strike_Server
         public bool limitedShopByZoneAndTimer;
         //TO DO
         public bool infiniteGunAmmo;
+
+        // Deathmatch and GunGame: no rounds, players respawn, the game ends with the time (roundTime)
+        public bool respawnMode;
+        // GunGame: the gun changes every 2 kills, no shop
+        public bool gunGame;
+        public bool canBuy = true;
     }
 }

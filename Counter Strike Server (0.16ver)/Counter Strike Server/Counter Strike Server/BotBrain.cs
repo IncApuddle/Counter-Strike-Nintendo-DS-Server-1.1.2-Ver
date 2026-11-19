@@ -106,8 +106,15 @@ namespace Counter_Strike_Server
                 ResetPath();
                 ResetCombat();
                 CancelTask();
+                // Deathmatch: buy again after the respawn
+                if (party.partyMode.respawnMode)
+                    hasBought = false;
                 return;
             }
+
+            // Deathmatch: the shop is always open (infinite money)
+            if (party.partyStarted && party.partyMode.respawnMode && party.partyMode.canBuy && party.roundState == RoundState.PLAYING)
+                BuyEquipment(party);
 
             // Bots wait at the spawn during the buy time (like in the game) and buy
             if (party.roundState == RoundState.WAIT_START)
@@ -250,8 +257,8 @@ namespace Counter_Strike_Server
         /// </summary>
         private void UpdateGun(float frames)
         {
-            // Warm up: bots never run out of ammo
-            if (bot.party.roundState == RoundState.TRAINING)
+            // Warm up, Deathmatch, GunGame: bots never run out of ammo
+            if (bot.party.roundState == RoundState.TRAINING || bot.party.partyMode.infiniteGunAmmo)
             {
                 Inventory inventory = bot.inventory;
                 for (int i = 1; i <= 2; i++)

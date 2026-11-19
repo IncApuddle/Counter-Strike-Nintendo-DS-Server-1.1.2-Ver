@@ -219,3 +219,17 @@ in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1
    at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
 in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 125
 
+ERROR [19.11.2026 14:17:17] Connection 12 blocked (Cannot access a disposed object.
+Object name: 'System.Net.Sockets.Socket'.)
+   at System.Net.Sockets.Socket.ThrowObjectDisposedException()
+   at System.Net.Sockets.Socket.get_Available()
+   at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 74
+
+ERROR [19.11.2026 14:42:01] Connection 6 blocked (Cannot access a disposed object.
+Object name: 'System.Net.Sockets.Socket'.)
+   at System.Net.Sockets.Socket.ThrowObjectDisposedException()
+   at System.Net.Sockets.Socket.get_Available()
+   at Counter_Strike_Server.NetworkDataManager.CheckForClientData() 
+in E:\Mine\Counter-Strike-Nintendo-DS-main\Counter-Strike-Nintendo-DS-Server-1.1.2\Counter Strike Server\Counter Strike Server\NetworkDataManager.cs:line 74
+

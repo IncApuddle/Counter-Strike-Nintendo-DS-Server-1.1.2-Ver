@@ -16,6 +16,19 @@ namespace Counter_Strike_Server
         public static List<MapData> allMaps = new List<MapData>();
 
         /// <summary>
+        /// Get the type of a map (OTHER if unknown)
+        /// </summary>
+        public static MapType GetMapType(mapEnum map)
+        {
+            foreach (MapData data in allMaps)
+            {
+                if (data.mapId == map)
+                    return data.mapType;
+            }
+            return MapType.OTHER;
+        }
+
+        /// <summary>
         /// Load maps data
         /// </summary>
         public static void LoadMapsData()
@@ -33,6 +46,7 @@ namespace Counter_Strike_Server
             
             MapData newMap = new MapData();
             newMap.mapId = mapEnum.DUST2;
+            newMap.mapType = MapType.DEFUSE;
 
             newMap.allTerroristsSpawns.Add(new Vector3(-3, 6.43f, 65));
             newMap.allTerroristsSpawns.Add(new Vector3(-6, 6.43f, 65));
@@ -58,6 +72,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
 
             newMap.mapId = mapEnum.TUTORIAL;
+            newMap.mapType = MapType.OTHER;
 
             newMap.allTerroristsSpawns.Add(new Vector3(0, 0, 0));
             newMap.allTerroristsSpawns.Add(new Vector3(0, 0, 0));
@@ -80,6 +95,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
             
             newMap.mapId = mapEnum.DUST2_2x2;
+            newMap.mapType = MapType.DEFUSE;
 
             newMap.allTerroristsSpawns.Add(new Vector3(-3, 6.43f, 65));
             newMap.allTerroristsSpawns.Add(new Vector3(-6, 6.43f, 65));
@@ -104,6 +120,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
 
             newMap.mapId = mapEnum.AIM_MAP;
+            newMap.mapType = MapType.OTHER;
 
             newMap.allTerroristsSpawns.Add(new Vector3(4, 0, 16.2f));
             newMap.allTerroristsSpawns.Add(new Vector3(-2.5f, 0, 16.2f));
@@ -128,6 +145,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
 
             newMap.mapId = mapEnum.B2000;
+            newMap.mapType = MapType.OTHER;
 
             newMap.allTerroristsSpawns.Add(new Vector3(0, 0, -14.3f));
             newMap.allTerroristsSpawns.Add(new Vector3(-7, 0, -14.3f));
@@ -154,6 +172,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
 
             newMap.mapId = mapEnum.FYSNOW;
+            newMap.mapType = MapType.OTHER;
 
             newMap.allTerroristsSpawns.Add(new Vector3(0, 0, -16));
             newMap.allTerroristsSpawns.Add(new Vector3(-7, 0, -16));
@@ -179,6 +198,7 @@ namespace Counter_Strike_Server
             newMap = new MapData();
 
             newMap.mapId = mapEnum.MIRAGE;
+            newMap.mapType = MapType.DEFUSE;
 
             newMap.allTerroristsSpawns.Add(new Vector3(22.5f, 2.45f, 58));
             newMap.allTerroristsSpawns.Add(new Vector3(25, 2.45f, 58));

@@ -21,6 +21,7 @@ namespace Counter_Strike_Server
     public enum VoteType
     {
         ForceStart = 0,
+        Mode = 1, // Vote for the next mode (warm up)
     }
 
     public static class PartyManager
@@ -33,6 +34,7 @@ namespace Counter_Strike_Server
         //All timer values
         public static DateTime roundChangeTime = new DateTime(2000, 1, 1, 0, 0, 0).AddSeconds(-1);
         public static DateTime quitPartyTime = new(2000, 1, 1, 0, 0, 20);
+        public static DateTime gameOverTime = new(2000, 1, 1, 0, 0, 10); // Scores shown before the warm up
         public static DateTime startFullPartyWaitingTime = new(2000, 1, 1, 0, 0, 10);
         
         //Map Time
@@ -77,6 +79,32 @@ namespace Counter_Strike_Server
             currentPartyModeData.endRoundWaitingTime = new DateTime(2000, 1, 1, 0, 0, 0);
             currentPartyModeData.bombWaitingTime = new DateTime(2000, 1, 1, 0, 0, 40);
             currentPartyModeData.trainingRespawnTimer = new DateTime(2000, 1, 1, 0, 0, 0);
+
+            //Deathmatch (index 3, like the game): 5 minutes, infinite money, buy everywhere
+            allPartyModesData.Add(new PartyModeData(false, 1, 16000, 16000, 0, 0, 0, 0, 0, 0, 0, 0, false, false));
+            currentPartyModeData = allPartyModesData[3];
+            currentPartyModeData.trainingTime = new DateTime(2000, 1, 1, 0, 1, 0);
+            currentPartyModeData.roundTime = new DateTime(2000, 1, 1, 0, 5, 0);
+            currentPartyModeData.trainingRespawnTimer = new DateTime(2000, 1, 1, 0, 0, 2);
+            currentPartyModeData.respawnMode = true;
+            currentPartyModeData.infiniteMoney = true;
+            currentPartyModeData.infiniteGunAmmo = true;
+            currentPartyModeData.spawnWithArmor = true;
+
+            //GunGame (index 4, like the game): next gun every 2 kills, the first who passes the last gun wins
+            allPartyModesData.Add(new PartyModeData(false, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false));
+            currentPartyModeData = allPartyModesData[4];
+            currentPartyModeData.trainingTime = new DateTime(2000, 1, 1, 0, 1, 0);
+            currentPartyModeData.roundTime = new DateTime(2000, 1, 1, 0, 30, 0); // Max time
+            currentPartyModeData.trainingRespawnTimer = new DateTime(2000, 1, 1, 0, 0, 2);
+            currentPartyModeData.respawnMode = true;
+            currentPartyModeData.gunGame = true;
+            currentPartyModeData.canBuy = false;
+            currentPartyModeData.infiniteGunAmmo = true;
+            currentPartyModeData.spawnWithArmor = true;
+
+            //Warm up: 1 minute (vote for the next mode)
+            allPartyModesData[Party.WARMUP_MODE].trainingTime = new DateTime(2000, 1, 1, 0, 1, 0);
         }
 
         /// <summary>
@@ -140,12 +168,17 @@ namespace Counter_Strike_Server
                                 if (currentParty.needTeamEquilibration)
                                     currentParty.EquilibrateTeams();
 
-                                currentParty.Start();
+                                //Start with the mode voted during the warm up
+                                currentParty.StartWithVotedMode();
                             }
                             else if (currentParty.roundState == RoundState.WAIT_START) //Set start round timer
                             {
                                 currentParty.partyTimer = currentParty.partyMode.roundTime;
                                 currentParty.roundState = RoundState.PLAYING;
+                            }
+                            else if (currentParty.roundState == RoundState.PLAYING && currentParty.partyMode.respawnMode) //Deathmatch/GunGame time is over
+                            {
+                                currentParty.GameOverByKills();
                             }
                             else if (currentParty.roundState == RoundState.PLAYING) //Set end round timer
                             {
@@ -237,13 +270,9 @@ namespace Counter_Strike_Server
                                 currentParty.ResetPlayers();
                                 currentParty.communicator.SendMoney();
                             }
-                            else if (currentParty.roundState == RoundState.END) //Close party
+                            else if (currentParty.roundState == RoundState.END) //End of the game: back to the warm up
                             {
-                                currentParty.Stop();
-
-                                i--;
-                                partyCount--;
-                                continue;
+                                currentParty.ReturnToWarmup();
                             }
 
                             //Send round state to all clients
@@ -274,13 +303,11 @@ namespace Counter_Strike_Server
                                 }
                             }
 
-                            //Force start party if there are enought votes
-                            //Only humans vote
-                            int humanCount = currentParty.HumanCount();
-                            if ((humanCount <= 3 && forceCount >= Math.Min(2, humanCount)) || (humanCount > 3 && forceCount >= humanCount - 2))
-                            {
-                                currentParty.Start();
-                            }
+                            //Force start (skip the warm up) is disabled: the warm up is used to vote for the mode
+                        }
+                        else if (currentParty.partyMode.respawnMode && currentParty.roundState == RoundState.PLAYING) //Deathmatch/GunGame: respawn
+                        {
+                            currentParty.RespawnDeadPlayers(roundChangeTime);
                         }
 
                         if (currentParty.roundState == RoundState.END_ROUND)
@@ -307,12 +334,43 @@ namespace Counter_Strike_Server
         /// </summary>
         /// <param name="currentClient">Client</param>
         /// <param name="isPrivate">Is private</param>
-        public static void CreateParty(Client currentClient, bool isPrivate)
+        // Codes of the private parties closed by a map change, with their end
+        // of validity: the players reconnect to a new party with the same code
+        private static readonly Dictionary<string, DateTime> recentPrivateCodes = new();
+
+        /// <summary>
+        /// Remember the codes of the private parties (before a map change)
+        /// </summary>
+        public static void RememberPrivateCodes()
+        {
+            lock (allParties)
+            {
+                lock (recentPrivateCodes)
+                {
+                    foreach (Party party in allParties)
+                        if (party.isPrivate && !string.IsNullOrEmpty(party.password))
+                            recentPrivateCodes[party.password] = DateTime.Now.AddSeconds(90);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Is this code the code of a private party closed by a map change?
+        /// </summary>
+        public static bool IsRecentPrivateCode(string code)
+        {
+            lock (recentPrivateCodes)
+            {
+                return recentPrivateCodes.TryGetValue(code, out DateTime end) && DateTime.Now < end;
+            }
+        }
+
+        public static void CreateParty(Client currentClient, bool isPrivate, string forcedPassword = null)
         {
             //Generate a random password for the party
-            string password;
-            bool passwordOk;
-            do
+            string password = forcedPassword;
+            bool passwordOk = forcedPassword != null;
+            while (!passwordOk)
             {
                 passwordOk = true;
                 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -333,7 +391,7 @@ namespace Counter_Strike_Server
                         continue;
                     }
                 }
-            } while (!passwordOk);
+            }
 
             //Create new party
             Party NewParty = new();

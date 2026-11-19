@@ -166,7 +166,7 @@ namespace Counter_Strike_Server
         /// </summary>
         public static bool IsDefuseMap(mapEnum map)
         {
-            return map == mapEnum.DUST2 || map == mapEnum.DUST2_2x2 || map == mapEnum.MIRAGE;
+            return MapManager.GetMapType(map) == MapType.DEFUSE;
         }
 
         private static readonly Random strategyRandom = new();

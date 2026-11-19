@@ -84,6 +84,29 @@
         /// Send party current round to all clients
         /// </summary>
         /// <param name="party">Party</param>
+        public void SendMode()
+        {
+            Call.Create($"SETMODE;{party.ModeIndex}", party.allConnectedClients);
+        }
+
+        /// <summary>
+        /// Send the votes for the next mode (Competitive, Casual, Deathmatch, GunGame)
+        /// </summary>
+        public void SendModeVotes()
+        {
+            int[] votes = party.GetModeVotes();
+            Call.Create($"MODEVOTES;{string.Join(';', votes)}", party.allConnectedClients);
+        }
+
+        /// <summary>
+        /// End of the game: winner player id (-1 if none) and winner team (-1 if none)
+        /// </summary>
+        public void SendGameOver(Client winner, TeamEnum winnerTeam)
+        {
+            int team = winnerTeam == TeamEnum.SPECTATOR ? -1 : (int)winnerTeam;
+            Call.Create($"GAMEOVER;{(winner != null ? winner.id : -1)};{team}", party.allConnectedClients);
+        }
+
         public void SendPartyRound()
         {
             Call.Create($"PartyRound;{(int)party.roundState}", party.allConnectedClients);

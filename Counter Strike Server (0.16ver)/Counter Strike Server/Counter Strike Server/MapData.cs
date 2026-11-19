@@ -44,6 +44,11 @@ namespace Counter_Strike_Server
 
         public static void ChengeMap()
         {
+            //Players reconnect by themselves after the map change (private
+            //parties keep their code)
+            PartyManager.RememberPrivateCodes();
+            ConnectionManager.SendReconnect();
+
             //Disconnect Users
             ConnectionManager.KickAll();
 
@@ -66,9 +71,20 @@ namespace Counter_Strike_Server
         }
     }
     
+    /// <summary>
+    /// Map type (same as MapType in the game map.h)
+    /// </summary>
+    public enum MapType
+    {
+        OTHER = 0,   //No objective (aim, fy, etc.)
+        DEFUSE = 1,  //Bomb maps (de_)
+        HOSTAGE = 2  //Hostage maps (cs_), reserved for later
+    };
+
     public class MapData
     {
         public mapEnum mapId;
+        public MapType mapType = MapType.OTHER;
         public int terroristsSpawnsAngle;
         public int counterTerroristsSpawnsAngle;
         public List<Vector3> allTerroristsSpawns = new List<Vector3>();

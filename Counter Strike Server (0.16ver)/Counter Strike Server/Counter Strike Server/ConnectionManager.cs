@@ -229,6 +229,20 @@ namespace Counter_Strike_Server
             return id;
         }
 
+        /// <summary>
+        /// Ask all players to reconnect after the disconnection (map change)
+        /// </summary>
+        public static void SendReconnect()
+        {
+            lock (allClients)
+            {
+                foreach (Client client in allClients)
+                    Call.Create("RECONNECT", client);
+            }
+            //Time to send the message before the disconnection
+            Thread.Sleep(500);
+        }
+
         public static void KickAll()
         {
             for (int KickPlayerIndex = 0; KickPlayerIndex < allClients.Count; KickPlayerIndex++)

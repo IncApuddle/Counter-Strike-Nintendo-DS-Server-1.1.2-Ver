@@ -27,7 +27,7 @@ namespace Counter_Strike_Server
         END = 3,
     };
 
-    public class Party
+    public partial class Party
     {
         public List<Client> allConnectedClients = new();
         public PartyCommunicator communicator;
@@ -142,11 +142,16 @@ namespace Counter_Strike_Server
             //Remove the bomb for all terrorists and add them in the allTerrorists list
             foreach (Client client in allConnectedClients)
             {
+                client.inventory.SetBomb(false);
                 if (client.team == TeamEnum.TERRORISTS)
                 {
                     allTerrorists.Add(client);
                 }
             }
+
+            //The bomb is only given on defuse maps (not on aim_map, fy_snow, $2000$...)
+            if (MapManager.GetMapType(mapId) != MapType.DEFUSE)
+                return;
 
             //If there is more than 0 terrorist
             if (allTerrorists.Count > 0)
@@ -191,10 +196,13 @@ namespace Counter_Strike_Server
             //If a team win
             if ((terroristsScore == Math.Floor(partyMode.maxRound / 2f) + 1) || (counterScore == Math.Floor(partyMode.maxRound / 2f) + 1) || (terroristsScore + counterScore == partyMode.maxRound))
             {
-                partyTimer = PartyManager.quitPartyTime;
-                roundState = RoundState.END;
-                //Send round state to all clients
-                communicator.SendPartyRound();
+                //End of the game: scores, then back to the warm up (see PartyModes.cs)
+                TeamEnum winnerTeam = TeamEnum.SPECTATOR;
+                if (terroristsScore > counterScore)
+                    winnerTeam = TeamEnum.TERRORISTS;
+                else if (counterScore > terroristsScore)
+                    winnerTeam = TeamEnum.COUNTERTERRORISTS;
+                GameOver(null, winnerTeam);
             }
             else if (partyMode.middlePartyTeamSwap && terroristsScore + counterScore == Math.Floor(partyMode.maxRound / 2f)) //If the party needs to swap
             {

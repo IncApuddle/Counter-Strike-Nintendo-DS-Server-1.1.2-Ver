@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Counter_Strike_Server
 {
@@ -90,8 +91,18 @@ namespace Counter_Strike_Server
                 throw new Exception("elementToBuy is out of range.");
             }
 
+            bool infiniteMoney = client.party != null && client.party.partyMode.infiniteMoney;
+            int modeIndex = client.party != null ? PartyManager.allPartyModesData.IndexOf(client.party.partyMode) : 0;
+
+            //GunGame: no shop
+            if (client.party != null && client.party.partyStarted && !client.party.partyMode.canBuy)
+            {
+                SendShopConfirm(elementToBuy, 0, 0, client);
+                return;
+            }
+
             //Check if the player is not dead and have enough money
-            if (!client.isDead && client.money >= allShopElements[elementToBuy].price)
+            if (!client.isDead && (infiniteMoney || client.money >= allShopElements[elementToBuy].price))
             {
                 bool haveError = false;
                 int inventoryIndex = -1;
@@ -122,11 +133,23 @@ namespace Counter_Strike_Server
                     //Try to put the grenade in a free slot for grenade in the inventory
                     for (int grenadeCheckIndex = Inventory.INVENTORY_GRENADES_START_POSITION; grenadeCheckIndex < Inventory.INVENTORY_EQUIPMENTS_START_POSITION; grenadeCheckIndex++)
                     {
+                        //Max quantity: only the first modes have values, the others use Competitive
+                        List<int> maxQuantities = ((Grenade)allShopElements[elementToBuy]).maxQuantity;
+                        int maxQuantity = maxQuantities[modeIndex >= 0 && modeIndex < maxQuantities.Count ? modeIndex : 0];
+
+                        //Infinite money (Deathmatch): limit = grenades in the inventory (the shop is always open)
+                        bool canBuyGrenade;
+                        if (infiniteMoney)
+                            canBuyGrenade = client.inventory.allSlots.Count(slot => slot == elementToBuy) < maxQuantity;
+                        else
+                            canBuyGrenade = client.inventory.grenadeBought[elementToBuy - SHOP_GUN_COUNT] < maxQuantity;
+
                         //Check if the inventory has a free slot and if the grenade bought count is valid
-                        if (client.inventory.allSlots[grenadeCheckIndex] == -1 && client.inventory.grenadeBought[elementToBuy - SHOP_GUN_COUNT] < ((Grenade)allShopElements[elementToBuy]).maxQuantity[PartyManager.allPartyModesData.IndexOf(client.party.partyMode)])
+                        if (client.inventory.allSlots[grenadeCheckIndex] == -1 && canBuyGrenade)
                         {
                             inventoryIndex = grenadeCheckIndex;
-                            client.inventory.grenadeBought[elementToBuy - SHOP_GUN_COUNT]++;
+                            if (!infiniteMoney)
+                                client.inventory.grenadeBought[elementToBuy - SHOP_GUN_COUNT]++;
                             foundPlace = true;
                             break;
                         }
@@ -208,7 +231,8 @@ namespace Counter_Strike_Server
                         SendShopConfirm(elementToBuy, inventoryIndex, 2, client);
                     }
 
-                    client.money -= allShopElements[elementToBuy].price;
+                    if (!infiniteMoney)
+                        client.money -= allShopElements[elementToBuy].price;
                     client.communicator.SendClientInventoryToClients();
                 }
                 else //Send bad result

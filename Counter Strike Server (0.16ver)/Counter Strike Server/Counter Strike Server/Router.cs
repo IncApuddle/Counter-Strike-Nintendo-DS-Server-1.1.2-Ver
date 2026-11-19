@@ -135,8 +135,12 @@ namespace Counter_Strike_Server
                 {
                     if (int.Parse(tempDataSplit[1]) == (int)VoteType.ForceStart)
                     {
-                        client.wantStartNow = true;
-                        currentParty.communicator.SendVoteResult(VoteType.ForceStart);
+                        //Force start is disabled (warm up = mode vote), ignore this vote
+                    }
+                    else if (int.Parse(tempDataSplit[1]) == (int)VoteType.Mode && tempDataSplit.Length > 2)
+                    {
+                        //Vote for the next mode (index in Party.VOTABLE_MODES)
+                        currentParty.VoteMode(client, int.Parse(tempDataSplit[2]));
                     }
                 }
                 else if (requestData == (int)RequestType.GRENADE)//Securised & Verified
