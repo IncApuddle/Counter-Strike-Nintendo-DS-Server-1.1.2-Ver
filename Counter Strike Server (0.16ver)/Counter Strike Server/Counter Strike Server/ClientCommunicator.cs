@@ -186,6 +186,8 @@ namespace Counter_Strike_Server
                 client.communicator.SendWhoHasTheBomb();
             }
             client.party.communicator.SendPartyTimer();
+            //Guns on the floor
+            client.party.SendDroppedGunsTo(client);
             Call.Create("ENDUPDATE", client);
         }
 

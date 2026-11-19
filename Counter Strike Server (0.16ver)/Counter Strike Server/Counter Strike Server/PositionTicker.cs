@@ -86,6 +86,10 @@ namespace Counter_Strike_Server
                         }
                     }
 
+                    //Players on a gun on the floor take it (all the players: the
+                    //player who dropped a gun can take it back later without moving)
+                    party.CheckDroppedGunsPickup(clients);
+
                     if (moved.Count == 0)
                         continue;
 

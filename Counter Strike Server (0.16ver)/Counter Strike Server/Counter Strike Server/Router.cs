@@ -58,6 +58,7 @@ namespace Counter_Strike_Server
             FRAME = 41,
             RELOADED = 42,
             STATUS = 43,
+            DROPGUN = 44,
         }
 
         /// <summary>
@@ -118,6 +119,11 @@ namespace Counter_Strike_Server
                 else if (requestData == (int)RequestType.GETBOMB)//Securised & Verified
                 {
                     client.GetBomb();
+                }
+                else if (requestData == (int)RequestType.DROPGUN)//Securised & Verified
+                {
+                    //Drop the gun in the hands (the party checks the mode, the slot and the gun)
+                    client.party?.DropCurrentGun(client);
                 }
                 else if (requestData == (int)RequestType.BOMBPLACING)//Securised & Verified
                 {

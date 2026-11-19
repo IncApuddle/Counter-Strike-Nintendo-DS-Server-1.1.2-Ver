@@ -255,6 +255,8 @@ namespace Counter_Strike_Server
                             {
                                 //Remove all grenades
                                 currentParty.allGrenades.Clear();
+                                //Remove the guns on the floor
+                                currentParty.ClearDroppedGuns();
 
                                 //Reset party
                                 currentParty.partyTimer = currentParty.partyMode.startRoundWaitingTime;

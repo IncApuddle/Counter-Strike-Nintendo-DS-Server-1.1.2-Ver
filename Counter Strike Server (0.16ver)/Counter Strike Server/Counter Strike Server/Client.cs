@@ -828,6 +828,9 @@ namespace Counter_Strike_Server
                     PlaceBomb(position.x, position.y, position.z, angle, true);
                 }
 
+                //Drop the primary gun (or the pistol) on the floor
+                party.DropGunOnDeath(this);
+
                 if (killerClient != null)
                 {
                     //If the killer killed a team mate

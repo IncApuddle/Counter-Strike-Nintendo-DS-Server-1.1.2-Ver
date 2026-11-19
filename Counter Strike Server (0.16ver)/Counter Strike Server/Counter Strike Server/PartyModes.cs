@@ -117,6 +117,7 @@ namespace Counter_Strike_Server
             bombSet = false;
             bombDropped = false;
             allGrenades.Clear();
+            ClearDroppedGuns();
 
             AutoTeam();
 
@@ -260,6 +261,7 @@ namespace Counter_Strike_Server
             bombSet = false;
             bombDropped = false;
             allGrenades.Clear();
+            ClearDroppedGuns();
 
             foreach (Client client in allConnectedClients)
             {

@@ -255,6 +255,7 @@ namespace Counter_Strike_Server
             partyStarted = true;
             roundState = 0;
             partyTimer = partyMode.startRoundWaitingTime;
+            ClearDroppedGuns();
 
             //Set values to all players
 
