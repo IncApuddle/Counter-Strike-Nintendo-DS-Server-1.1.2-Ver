@@ -283,6 +283,10 @@ namespace Counter_Strike_Server
             inventory.AllAmmoMagazine[slot - 1].AmmoCount = gun.ammoCount;
             inventory.AllAmmoMagazine[slot - 1].TotalAmmoCount = gun.totalAmmo;
 
+            //Pick up sound for the player (same sound as in single player)
+            if (!client.isBot)
+                Call.Create("PICKUP", client);
+
             // Take a primary gun in the hands, a pistol only if the player has the knife
             if (slot == 2 || inventory.currentSlot == 0)
                 inventory.currentSlot = slot;
